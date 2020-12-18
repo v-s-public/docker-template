@@ -59,7 +59,7 @@ services:
       SERVICE_TAGS: dev
     volumes:
       - postgresdbvolume:/var/lib/postgresql/data
-      - ./docker/postgres/conf/postgres.conf:/usr/share/postgresql/postgresql.conf.sample
+      - ./docker/postgres/conf/postgres.cnf:/usr/share/postgresql/postgresql.conf.sample
     networks:
       - laravel
 
