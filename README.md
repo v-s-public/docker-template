@@ -9,7 +9,7 @@
 1. Clone repository
 2. Go to folder with cloned repository.
 3. Run `docker-compose up -d --build`   
-4. Place your code to `./src` folder
+4. Remove `README.md` file from `./src` folder and place your code to `./src` folder
 
     4.1. With git
     * `git clone https://github.com/user/repo.git ./src`
