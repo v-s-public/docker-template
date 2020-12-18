@@ -1,0 +1,105 @@
+version: "3.7"
+services:
+  
+  #PHP Service
+  app:
+    build:
+      args:
+        user: laravel
+        uid: 1000
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    image: laravel-image
+    container_name: laravel
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev  
+    working_dir: /var/www/
+    volumes:
+      - ./src:/var/www
+      - ./docker/php/conf/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - laravel
+  
+  #MySQL Service  
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PASSWORD: secret
+      MYSQL_USER: laravel
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - mysqldbvolume:/var/lib/mysql
+      - ./docker/mysql/conf/my.cnf:/etc/mysql/my.cnf  
+    networks:
+      - laravel
+
+  #PostgreSQL Service
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: db_postgresql
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
+      SERVICE_NAME: postgres
+      SERVICE_TAGS: dev
+    volumes:
+      - postgresdbvolume:/var/lib/postgresql/data
+    networks:
+      - laravel
+
+  #Nginx Service
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      SERVICE_NAME: nginx
+      SERVICE_TAGS: dev        
+    volumes:
+      - ./src:/var/www
+      - ./docker/nginx/conf:/etc/nginx/conf.d
+    networks:
+      - laravel    
+  
+  #NodeJS Service
+  nodejs:
+    image: node:13.7
+    container_name: nodejs
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: nodejs
+      SERVICE_TAGS: dev  
+    volumes:
+      - ./src:/var/www
+    working_dir: /var/www
+#Networks
+networks:
+  laravel:
+    driver: bridge
+# Volumes
+volumes:
+  mysqldbvolume:
+    driver: local
+  postgresdbvolume:
+    driver: local
