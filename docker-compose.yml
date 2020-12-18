@@ -52,7 +52,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: db_postgresql
+      POSTGRES_DB: laravel
       POSTGRES_USER: laravel
       POSTGRES_PASSWORD: secret
       SERVICE_NAME: postgres
@@ -70,7 +70,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "80:80"
+      - "8080:80"
       - "443:443"
     environment:
       SERVICE_NAME: nginx

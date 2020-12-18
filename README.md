@@ -21,19 +21,40 @@
 5. Setup database connection in your `.env` file:
 
 
-    DB_CONNECTION=mysql
-   
-    DB_HOST=mysql
-   
-    DB_PORT=3306
-   
-    DB_DATABASE=laravel
-   
-    DB_USERNAME=laravel
-   
-    DB_PASSWORD=secret
+      MySQL:
+      
+            DB_CONNECTION=mysql
+         
+            DB_HOST=mysql
+         
+            DB_PORT=3306
+         
+            DB_DATABASE=laravel
+         
+            DB_USERNAME=laravel
+         
+            DB_PASSWORD=secret
+
+
+
+      Or PostgreSQL:
+
+            DB_CONNECTION=pgsql
+         
+            DB_HOST=postgres
+         
+            DB_PORT=5432
+         
+            DB_DATABASE=laravel
+         
+            DB_USERNAME=laravel
+         
+            DB_PASSWORD=secret
    
 6. Run migrations: `docker-compose exec app php artisan migrate`
+
+Now your application available by http://localhost:8080
+
 ## Available commands
 ### Composer
 `docker-compose exec app composer [composer_command]`
