@@ -49,3 +49,7 @@ Container is created to execute a npm command and will be removed after command 
 `docker-compose run -rm npm run dev`
 
 `docker-compose run -rm npm run watch-poll`
+## Volumes
+Named volumes are used here. Physically located in `/var/lib/docker/volumes/`. Available to users with `sudo` rights.
+* volumes list - `docker volume ls`
+* inspect volume - `docker volume inspect test_mysqldbvolume`
