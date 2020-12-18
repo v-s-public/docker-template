@@ -1,7 +1,6 @@
 version: "3.7"
 services:
-  
-  #PHP Service
+  # PHP Service
   app:
     build:
       args:
@@ -9,8 +8,8 @@ services:
         uid: 1000
       context: ./
       dockerfile: ./docker/php/Dockerfile
-    image: laravel-image
-    container_name: laravel
+    image: app-php-image
+    container_name: app
     restart: unless-stopped
     tty: true
     environment:
@@ -23,7 +22,7 @@ services:
     networks:
       - laravel
   
-  #MySQL Service  
+  # MySQL Service
   mysql:
     image: mysql:5.7
     container_name: mysql
@@ -44,7 +43,7 @@ services:
     networks:
       - laravel
 
-  #PostgreSQL Service
+  # PostgreSQL Service
   postgres:
     image: postgres
     container_name: postgres
@@ -60,10 +59,11 @@ services:
       SERVICE_TAGS: dev
     volumes:
       - postgresdbvolume:/var/lib/postgresql/data
+      - ./docker/postgres/conf/postgres.conf:/usr/share/postgresql/postgresql.conf.sample
     networks:
       - laravel
 
-  #Nginx Service
+  # Nginx Service
   nginx:
     image: nginx:1.17-alpine
     container_name: nginx
@@ -81,22 +81,20 @@ services:
     networks:
       - laravel    
   
-  #NodeJS Service
-  nodejs:
+  # NodeJS NPM Service
+  npm:
     image: node:13.7
-    container_name: nodejs
-    restart: unless-stopped
-    tty: true
-    environment:
-      SERVICE_NAME: nodejs
-      SERVICE_TAGS: dev  
+    container_name: npm
     volumes:
       - ./src:/var/www
     working_dir: /var/www
-#Networks
+    entrypoint: ['npm']
+
+# Networks
 networks:
   laravel:
     driver: bridge
+
 # Volumes
 volumes:
   mysqldbvolume:
