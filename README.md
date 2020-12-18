@@ -59,7 +59,7 @@ Now your application available by http://localhost:8080
 ### Composer
 `docker-compose exec app composer [composer_command]`
 ### PHP and artisan
-`docker-compose exec app php -v`
+`docker-compose exec app php [options] [-f] <file> [--] [args...]`
 
 `docker-compose exec app php artisan [artisan_command]`
 ### npm
