@@ -3,7 +3,6 @@
 * PHP (+ composer)
 * Nginx
 * MySQL
-* PostgreSQL
 * NPM (disposable|removable)
 ## Setup
 1. Clone repository
@@ -19,31 +18,12 @@
     * `docker-compose exec app composer create-project laravel/laravel ./`
     
 5. Setup database connection in your `.env` file:
-
-
-      MySQL:
       
             DB_CONNECTION=mysql
          
             DB_HOST=mysql
          
             DB_PORT=3306
-         
-            DB_DATABASE=laravel
-         
-            DB_USERNAME=laravel
-         
-            DB_PASSWORD=secret
-
-
-
-      Or PostgreSQL:
-
-            DB_CONNECTION=pgsql
-         
-            DB_HOST=postgres
-         
-            DB_PORT=5432
          
             DB_DATABASE=laravel
          
